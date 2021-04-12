@@ -1,0 +1,71 @@
+import Vue from 'vue';
+import Router from 'vue-router';
+import Login from '../components/auth/Login.vue';
+import Register from '../components/auth/Register.vue';
+import Books from '../components/Books.vue';
+import Ping from '../components/Ping.vue';
+import Pong from '../components/Pong.vue';
+import Usermanagement from '../components/Usermanagement.vue';
+
+Vue.use(Router);
+
+const tokenIsValid = (new Date(localStorage.getItem('validTill')) > new Date());
+
+const ifNotAuthenticated = (to, from, next) => {
+  if (tokenIsValid === false || !localStorage.getItem('token')) {
+    // console.log('token is null');
+    next();
+    return;
+  }
+  next('/pong');
+};
+
+const ifAuthenticated = (to, from, next) => {
+  if (localStorage.getItem('token') && tokenIsValid) {
+    console.log(tokenIsValid);
+    next();
+    return;
+  }
+  next('/login');
+};
+
+export default new Router({
+  mode: 'history',
+  base: process.env.BASE_URL,
+  routes: [
+    {
+      path: '/Register',
+      name: 'Register',
+      component: Register,
+      beforeEnter: ifNotAuthenticated,
+    },
+    {
+      path: '/login',
+      name: 'Login',
+      component: Login,
+      beforeEnter: ifNotAuthenticated,
+    },
+    {
+      path: '/',
+      name: 'Books',
+      component: Books,
+    },
+    {
+      path: '/ping',
+      name: 'Ping',
+      component: Ping,
+    },
+    {
+      path: '/pong',
+      name: 'Pong',
+      component: Pong,
+      beforeEnter: ifAuthenticated,
+    },
+    {
+      path: '/usermanagement',
+      name: 'Usermanagement',
+      component: Usermanagement,
+      beforeEnter: ifAuthenticated,
+    },
+  ],
+});
