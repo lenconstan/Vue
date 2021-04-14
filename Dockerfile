@@ -1,4 +1,4 @@
-# stage1 as builder
+# stage1 build vue/node
 FROM node:10-alpine as builder
 
 WORKDIR /vue
@@ -13,10 +13,8 @@ COPY . .
 # Build the project
 RUN npm run build
 
-# Enable live reload
-app npm run dev:watch
 
-
+# Stage 2 build nginx part
 FROM nginx:alpine as production-build
 COPY ./nginx/nginx.conf /etc/nginx/nginx.conf
 
