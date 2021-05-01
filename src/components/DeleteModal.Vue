@@ -4,3 +4,11 @@
     <input type="text">
   </b-modal>
 </template>
+
+<script>
+export default {
+};
+</script>
+
+<style scoped>
+</style>
