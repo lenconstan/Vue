@@ -12,7 +12,6 @@
         </div>
         </b-container>
         <AddProductModal/>
-        <DeleteModal/>
     </div>
 </template>
 
@@ -21,11 +20,10 @@
 import Navbar from './Navbar.vue';
 import ContentBar from './ContentBar.vue';
 import AddProductModal from './AddProductModal.vue';
-import DeleteModal from './DeleteModal.vue';
 
 export default {
   components: {
-    Navbar, ContentBar, AddProductModal, DeleteModal,
+    Navbar, ContentBar, AddProductModal,
   },
   data() {
     return {
