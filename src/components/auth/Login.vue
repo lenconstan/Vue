@@ -58,7 +58,7 @@ export default {
           console.log(response.status);
           localStorage.setItem('token', response.data.token); // to store the token
           localStorage.setItem('validTill', response.data.valid_till); // store token valid till datetime
-
+          localStorage.setItem('user_id', response.data.user.id);
           if (localStorage.getItem('token')) {
             // axios.defaults.headers.common.Authorization = `Bearer ${response.data.token}`;
             localStorage.setItem('authorizationHeader', `Bearer ${response.data.token}`);

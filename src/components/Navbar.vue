@@ -2,29 +2,22 @@
     <div>
     <div class="header-img">
     <b-navbar toggleable="lg" type="dark" variant="dark bg-transparent" fixed="fixed-top">
-        <b-navbar-brand href="/pong">CasaC</b-navbar-brand>
 
         <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
-
+        <img class="logo-placeholder" src="../assets/StanDeVakmanLogo.png" alt="">
         <b-collapse id="nav-collapse" is-nav>
         <b-navbar-nav>
-            <b-nav-item href="/">Books</b-nav-item>
-            <b-nav-item href="/usermanagement">Usermanagement</b-nav-item>
-            <b-nav-item href="#" disabled>Disabled</b-nav-item>
+            <a href="/"><button class="btn btn-sm align-middle btn-outline-white"
+            type="button" to="/" href="/">Books</button></a>
+            <a href="/houses"><button class="btn btn-sm align-middle btn-outline-white"
+            type="button" href="#">Houses</button></a>
         </b-navbar-nav>
 
         <!-- Right aligned nav items -->
         <b-navbar-nav class="ml-auto">
-
+            <a href="/profile"><button class="btn btn-sm align-middle btn-outline-white"
+            type="button" href="#">Profile</button></a>
             <Logout/>
-            <b-nav-item-dropdown right>
-            <!-- Using 'button-content' slot -->
-            <template #button-content>
-                <em>User</em>
-            </template>
-            <b-dropdown-item href="#">Profile</b-dropdown-item>
-            <b-dropdown-item href="#">Sign Out</b-dropdown-item>
-            </b-nav-item-dropdown>
         </b-navbar-nav>
         </b-collapse>
     </b-navbar>
@@ -43,12 +36,35 @@ export default {
 </script>
 
 <style scoped>
+  .logo-placeholder {
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 40px;
+    max-block-size: 150px;
+    color: whitesmoke;
+    position: absolute;
+    left: 50%;
+    margin-left: -75px !important;  /* 50% of your logo width */
+    margin-top: 105px;
+    display: block;
+  }
+
   .header-img {
   width: 100%;
-  height: 150px;
-  background: url('http://ondinas.com.br/site/wp-content/themes/options/images/skins/headers/full_width/header-purpleHaze.jpg');
+  height: 170px;
+  background-color: #9799BA;
+  background-image:
+    linear-gradient(
+      #9799BA, #b5a1c7
+    );
   background-size: cover;
   padding: 0rem;
 }
-
+.btn-outline-white {
+  border-color: whitesmoke;
+  border-radius: 0%;
+  border-width: 1px;
+  color: whitesmoke;
+  font-family: 'Courier New', Courier, monospace;
+  margin: 7px;
+}
 </style>

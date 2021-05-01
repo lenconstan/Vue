@@ -19,6 +19,11 @@
         <input type="text" class="input ml-3" v-model="addProductForm.slug">
       </div>
       <div class="row ml-3 mb-1">
+        <!-- Slug -->
+        <label><code>Category</code> : </label>
+        <input type="number" class="input ml-3" v-model="addProductForm.category_id">
+      </div>
+      <div class="row ml-3 mb-1">
         <!-- Product Price -->
         <label><code>Product Price</code> : </label>
         <input type="number" class="input ml-3" v-model="addProductForm.price">
@@ -37,6 +42,7 @@ export default {
         name: '',
         description: '',
         slug: '',
+        category_id: '',
         price: '',
       },
     };
@@ -49,6 +55,7 @@ export default {
         },
       };
       const path = 'http://localhost:8000/api/products';
+      console.log(payload);
       axios.post(path, payload, headers)
         .then(() => {
           this.getProducts();
@@ -65,6 +72,7 @@ export default {
       this.initForm();
     },
     handleOk() {
+      console.log(this.name);
       this.checkRequired(this.name, this.description, this.slug);
       this.addProduct(this.addProductForm);
     },
@@ -101,6 +109,7 @@ export default {
       this.addProductForm.name = '';
       this.addProductForm.description = '';
       this.addProductForm.slug = '';
+      this.addProductForm.category = '';
       this.addProductForm.price = '';
     },
     makeToast(text) {

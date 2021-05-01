@@ -15,8 +15,10 @@
     "chai": "^4.3.4",
     "core-js": "^3.6.5",
     "es6-promise": "^4.2.8",
+    "firebase": "^8.4.1",
     "mdbvue": "^5.4.1",
     "mocha": "^8.3.2",
+    "uuid": "^3.4.0",
     "vue": "^2.6.11",
     "vue-router": "^3.2.0",
     "vue-toasted": "^1.1.28",
@@ -28,7 +30,7 @@
     "@vue/cli-plugin-babel": "~4.5.0",
     "@vue/cli-plugin-eslint": "~4.5.0",
     "@vue/cli-plugin-router": "~4.5.0",
-    "@vue/cli-service": "~4.5.0",
+    "@vue/cli-service": "^4.1.1",
     "@vue/eslint-config-airbnb": "^5.0.2",
     "babel-eslint": "^10.1.0",
     "bootstrap": "^4.5.2",
@@ -41,7 +43,8 @@
     "sass": "^1.26.11",
     "sass-loader": "^10.0.2",
     "vue-cli-plugin-bootstrap-vue": "~0.7.0",
-    "vue-template-compiler": "^2.6.11"
+    "vue-template-compiler": "^2.6.11",
+    "vue2-dropzone": "^3.6.0"
   },
   "eslintConfig": {
     "root": true,

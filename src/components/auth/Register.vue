@@ -102,6 +102,7 @@ export default {
       })
         .then((response) => {
           localStorage.setItem('token', response.data.token); // to store the token
+          localStorage.setItem('user_id', response.data.user.id); //  store user_id
           localStorage.setItem('validTill', response.data.valid_till); // store token valid till datetime
           //   localStorage.getItem('name'); // to getthe token value
           window.location.replace('/pong');
