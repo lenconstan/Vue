@@ -8,6 +8,7 @@ import Pong from '../components/Pong.vue';
 import Usermanagement from '../components/Usermanagement.vue';
 import ProfileLanding from '../components/ProfileLanding.vue';
 import Houses from '../components/Houses.vue';
+import StreetArt from '../components/streetart/StreetArt.vue';
 
 Vue.use(Router);
 
@@ -35,6 +36,12 @@ export default new Router({
   mode: 'history',
   base: process.env.BASE_URL,
   routes: [
+    // Landing page
+    {
+      path: '/',
+      name: 'Streetart',
+      component: StreetArt,
+    },
     // Auth routes
     {
       path: '/Register',
@@ -60,7 +67,7 @@ export default new Router({
       component: Houses,
     },
     {
-      path: '/',
+      path: '/books',
       name: 'Books',
       component: Books,
     },
