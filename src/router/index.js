@@ -38,7 +38,7 @@ export default new Router({
   routes: [
     // Landing page
     {
-      path: '/',
+      path: '/wandeling',
       name: 'Streetart',
       component: StreetArt,
     },
