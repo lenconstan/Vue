@@ -1,10 +1,15 @@
 import BootstrapVue from 'bootstrap-vue';
 import Vue from 'vue';
+import VueGtag from 'vue-gtag';
 import Toasted from 'vue-toasted';
 import firebase from 'firebase';
 import App from './App.vue';
 import router from './router';
 import 'bootstrap/dist/css/bootstrap.css';
+
+Vue.use(VueGtag, {
+  config: { id: 'G-VG1LJTW34B' },
+}, router);
 
 // const firebaseConfig = (process.env.VUE_APP_FIREBASECONFIG);
 
