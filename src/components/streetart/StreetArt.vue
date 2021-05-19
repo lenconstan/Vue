@@ -248,6 +248,9 @@
               </p>
             </div>
         </div>
+        <div class="row">
+          <br><br><br><br><br><br><br><br>
+        </div>
         <!-- large centered map -->
         <!-- <div class="wrapper">
           <iframe src="https://www.google.com/maps/d/u/0/embed?mid=10yIs2ICRQhVfYj_69a0gDSjVBOC-lyis"></iframe>
