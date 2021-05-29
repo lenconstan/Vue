@@ -178,6 +178,10 @@
                 </i></p>
                 </div>
               </div>
+              <div class="paragraph-header">
+                <h6><strong>H. Het Doppler-effect</strong></h6>
+                <p>Burgemeester Reigerstraat</p>
+              </div>
               <p>
                 Hoeveel Utrechters zijn er op de hoogte van de wetenschappelijke ontdekkingen
                 die in Utrecht zijn gedaan? Weinig, vandaar deze Street Art! Buys Ballot
