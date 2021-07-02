@@ -20,7 +20,7 @@ const ifNotAuthenticated = (to, from, next) => {
     next();
     return;
   }
-  next('/pong');
+  next('/');
 };
 
 const ifAuthenticated = (to, from, next) => {
@@ -77,10 +77,9 @@ export default new Router({
       component: Ping,
     },
     {
-      path: '/pong',
-      name: 'Pong',
+      path: '/',
+      name: 'Home',
       component: Pong,
-      beforeEnter: ifAuthenticated,
     },
     {
       path: '/usermanagement',

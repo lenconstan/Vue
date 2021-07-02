@@ -49,7 +49,7 @@ export default {
       return true;
     },
     login() {
-      const path = 'http://localhost:8000/api/login';
+      const path = `${(process.env.VUE_APP_API_URL)}login`;
       axios.post(path, {
         email: this.email,
         password: this.password,
@@ -65,7 +65,7 @@ export default {
             console.log(`Bearer ${response.data.token}`);
           }
           //   localStorage.getItem('name'); // to getthe token value
-          window.location.replace('/pong');
+          window.location.replace('/');
         })
         .catch((error) => {
           console.log(error);

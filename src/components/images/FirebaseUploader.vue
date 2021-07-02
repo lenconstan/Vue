@@ -85,7 +85,7 @@ export default {
       }
     },
     logUrl() {
-      const path = 'http://localhost:8000/api/firebaseurl';
+      const path = `${(process.env.VUE_APP_API_URL)}firebaseurl`;
       const headers = {
         headers: {
           Authorization: localStorage.getItem('authorizationHeader'),

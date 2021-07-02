@@ -54,7 +54,7 @@ export default {
           Authorization: localStorage.getItem('authorizationHeader'),
         },
       };
-      const path = 'http://localhost:8000/api/products';
+      const path = `${(process.env.VUE_APP_API_URL)}products`;
       console.log(payload);
       axios.post(path, payload, headers)
         .then(() => {

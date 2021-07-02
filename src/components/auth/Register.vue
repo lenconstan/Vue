@@ -93,7 +93,7 @@ export default {
       return console.log('not lol');
     },
     registerNewUser() {
-      const path = 'http://localhost:8000/api/register';
+      const path = `${(process.env.VUE_APP_API_URL)}register`;
       axios.post(path, {
         name: this.username,
         email: this.email,
@@ -105,7 +105,7 @@ export default {
           localStorage.setItem('user_id', response.data.user.id); //  store user_id
           localStorage.setItem('validTill', response.data.valid_till); // store token valid till datetime
           //   localStorage.getItem('name'); // to getthe token value
-          window.location.replace('/pong');
+          window.location.replace('/');
         })
         .catch((error) => {
           console.log(error);
