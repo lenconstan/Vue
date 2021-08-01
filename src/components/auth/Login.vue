@@ -50,6 +50,7 @@ export default {
     },
     login() {
       const path = `${(process.env.VUE_APP_API_URL)}login`;
+      console.log(path);
       axios.post(path, {
         email: this.email,
         password: this.password,
