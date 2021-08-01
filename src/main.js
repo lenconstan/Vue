@@ -1,4 +1,4 @@
-import BootstrapVue from 'bootstrap-vue';
+import { BootstrapVue, BootstrapVueIcons } from 'bootstrap-vue';
 import Vue from 'vue';
 import VueGtag from 'vue-gtag';
 import Toasted from 'vue-toasted';
@@ -24,6 +24,7 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 
 Vue.use(BootstrapVue);
+Vue.use(BootstrapVueIcons);
 Vue.use(Toasted);
 Vue.use(firebase);
 

@@ -55,7 +55,7 @@ export default {
         password: this.password,
       })
         .then((response) => {
-          console.log(response.status);
+          console.log(`lol ${response.status}`);
           localStorage.setItem('token', response.data.token); // to store the token
           localStorage.setItem('validTill', response.data.valid_till); // store token valid till datetime
           localStorage.setItem('user_id', response.data.user.id);
@@ -68,7 +68,18 @@ export default {
           window.location.replace('/');
         })
         .catch((error) => {
-          console.log(error);
+          if (error.response) {
+            // Request made and server responded
+            this.makeToast('Wrong credentials!');
+            console.log(error.response.status);
+          } else if (error.request) {
+            // The request was made but no response was received
+            console.log(error.request);
+            this.makeToast('Server connection problem :-|');
+          } else {
+            // Something happened in setting up the request that triggered an Error
+            console.log('Error', error.message);
+          }
         });
     },
     loginProcedure() {

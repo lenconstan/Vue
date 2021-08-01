@@ -15,7 +15,15 @@
           <b-row>
             <div v-for="image in images" :key="image.src">
               <b-col>
-                <b-img thumbnail fluid :src="image.src"></b-img>
+                <div class="img-hover">
+                  <b-img thumbnail fluid :src="image.src"></b-img>
+                  <div class="overlay">
+                    <b-iconstack font-scale="5" v-on:click="lol">
+                      <b-icon stacked icon="camera" variant="info" scale="0.75"></b-icon>
+                      <b-icon stacked icon="slash-circle" variant="danger"></b-icon>
+                    </b-iconstack>
+                  </div>
+                </div>
               </b-col>
             </div>
           </b-row>
@@ -122,4 +130,21 @@ export default {
     max-width: 200px;
     margin: 5px;
   }
+  .overlay {
+  text-align: center;
+  position: absolute;
+  top: 30%;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 100%;
+  width: 100%;
+  opacity: 0;
+  transition: .3s ease;
+}
+
+.img-hover:hover .overlay {
+  opacity: 1;
+}
+
 </style>

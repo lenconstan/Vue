@@ -8,7 +8,7 @@
         <b-collapse id="nav-collapse" is-nav>
         <b-navbar-nav>
             <a href="/"><button class="btn btn-sm align-middle btn-outline-white"
-            type="button" to="/" href="/">Books</button></a>
+            type="button" to="/" href="/">Home</button></a>
             <a href="/houses"><button class="btn btn-sm align-middle btn-outline-white"
             type="button" href="#">Houses</button></a>
         </b-navbar-nav>
