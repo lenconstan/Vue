@@ -60,21 +60,25 @@ export default new Router({
       path: '/profile',
       name: 'Profile',
       component: ProfileLanding,
+      beforeEnter: ifAuthenticated,
     },
     {
       path: '/houses',
       name: 'Houses',
       component: Houses,
+      beforeEnter: ifAuthenticated,
     },
     {
       path: '/books',
       name: 'Books',
       component: Books,
+      beforeEnter: ifAuthenticated,
     },
     {
       path: '/ping',
       name: 'Ping',
       component: Ping,
+      beforeEnter: ifAuthenticated,
     },
     {
       path: '/',

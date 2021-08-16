@@ -13,12 +13,13 @@
       <div v-if="images.length > 0">
         <b-container fluid class="p-4">
           <b-row>
-            <div v-for="image in images" :key="image.src">
+            <div v-for="i in images" :key="i.id">
+              <!-- <p>{{ i.id }}</p> -->
               <b-col>
                 <div class="img-hover">
-                  <b-img thumbnail fluid :src="image.src"></b-img>
+                  <b-img thumbnail fluid :src="i.src"></b-img>
                   <div class="overlay">
-                    <b-iconstack font-scale="5" v-on:click="lol">
+                    <b-iconstack font-scale="5" v-on:click="deleteImage(i.id)">
                       <b-icon stacked icon="camera" variant="info" scale="0.75"></b-icon>
                       <b-icon stacked icon="slash-circle" variant="danger"></b-icon>
                     </b-iconstack>
@@ -47,6 +48,7 @@ export default {
   },
   data() {
     return {
+      tempImgId: 0,
       images: [],
       dropzoneOptions: {
         url: 'https://vuejs-25790.appspot.com',
@@ -63,6 +65,44 @@ export default {
     };
   },
   methods: {
+    deleteImage(id) {
+      console.log(id);
+      const path = `${(process.env.VUE_APP_API_URL)}images/${id}`;
+      const headers = {
+        headers: {
+          Authorization: localStorage.getItem('authorizationHeader'),
+        },
+      };
+      axios.delete(path, {}, headers)
+        .then(() => {
+          for (let i = 0; i < this.images.length; i += 1) {
+            if (this.images[i].id === id) {
+              this.images.splice(i, 1);
+              break;
+            }
+          }
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
+    getUserImages(userId) {
+      const path = `${(process.env.VUE_APP_API_URL)}get_user_images/${userId}`;
+      const headers = {
+        headers: {
+          Authorization: localStorage.getItem('authorizationHeader'),
+        },
+      };
+      axios.get(path, {}, headers)
+        .then((res) => {
+          for (let i = 0; i < res.data.length; i += 1) {
+            this.images.push({ src: res.data[i].url, id: res.data[i].id });
+          }
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
     downloadReference(ref) {
       const str = ref;
       const pos = str.indexOf('?alt=media&token');
@@ -82,11 +122,9 @@ export default {
         const imageRef = storageRef.child(`images/${imageName}.png`);
         await imageRef.put(file, metaData);
         const downloadUrl = await imageRef.getDownloadURL();
-        this.images.push({ src: downloadUrl });
         this.logUrlBody.url = this.downloadReference(downloadUrl);
-        console.log(this.logUrlBody);
         this.logUrlBody.user_id = localStorage.getItem('user_id');
-        this.logUrl();
+        this.images.push({ src: downloadUrl, id: this.logUrl() });
         this.$refs.imgDropzone.removeFile(file);
       } catch (error) {
         console.log(error);
@@ -101,12 +139,16 @@ export default {
       };
       axios.post(path, this.logUrlBody, headers)
         .then((res) => {
-          console.log(res);
+          this.tempImgId = res.data.id;
+          return res.data.id;
         })
         .catch((error) => {
           console.log(error);
         });
     },
+  },
+  created() {
+    this.getUserImages(localStorage.getItem('user_id'));
   },
 };
 </script>

@@ -1,6 +1,6 @@
 <template>
 <div>
-    <div class="row">
+    <div class="row" min-height="120px">
         <div class="col-3">
           <!-- if user has images -->
           <div v-if="userImgsUrls[0]">
@@ -12,9 +12,14 @@
           </div>
         </div>
         <div class="col-8 ml-5">
-            <h4>{{ profileData.description }}</h4>
-            <p><b>{{ profileData.city }}</b></p>
-            <p>Rooms: {{ profileData.rooms }}</p>
+            <h4>{{ profileData.title }}</h4>
+            <div class="row">
+              <div class="col"><p><b>City: <br>{{ profileData.city }}</b></p></div>
+              <div class="col"><p><b>Rooms: <br>{{ profileData.rooms }}</b></p></div>
+              <div class="col"><p><b>Beds: <br>{{ profileData.sleepingplaces }}</b></p></div>
+            </div>
+            <hr>
+            <p>{{ profileData.description }}</p>
         </div>
     </div>
     <hr>
@@ -61,7 +66,8 @@ export default {
       };
       axios.get(path, {}, headers)
         .then((res) => {
-          this.profileData = res.data;
+          const resData = res.data[0];
+          this.profileData = resData;
         })
         .catch((error) => {
           console.log(error);
@@ -86,7 +92,7 @@ img {
   margin-right: 100px;
   border-radius: 10px;
 }
-  p {
-    font-family: 'Courier New', Courier, monospace;
-  }
+p {
+  font-family: 'Courier New', Courier, monospace;
+}
 </style>

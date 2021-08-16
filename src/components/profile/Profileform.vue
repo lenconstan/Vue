@@ -20,16 +20,26 @@
       <div class="col-6 col-sm pr-sm-0">
         <form>
           <select name="rooms" class="form-control" v-model="houseData.rooms">
-            <option selected>Number of rooms</option>
+            <option selected v-if="houseData.rooms">{{ houseData.rooms }}</option>
+            <option disabled>Number of rooms</option>
             <option value="1">1</option>
             <option value="2">2</option>
             <option value="3">3</option>
+            <option value="4">4</option>
           </select>
         </form>
       </div>
       <div class="col-6 col-sm pr-sm-0">
-        <b-form-spinbutton id="sleeping-places" v-model="houseData.sleepingPlaces"
-        min="1" max="15" placeholder="No. of beds"></b-form-spinbutton>
+        <form>
+          <select name="sleepingplaces" class="form-control" v-model="houseData.sleepingplaces">
+            <option selected v-if="houseData.sleepingplaces">{{ houseData.sleepingplaces }}</option>
+            <option disabled>Number of beds</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+          </select>
+        </form>
       </div>
     </div>
     <div class="row">
@@ -39,28 +49,62 @@
         v-model="houseData.description"></textarea>
       </div>
     </div>
+    <FirebaseUploader/>
+    <button v-if="hasProfile" type="button" v-on:click="updateProfile(houseData)"
+    class="block">Update profile!</button>
+    <button v-else type="button" v-on:click="updateProfile(houseData)"
+    class="block">Register your house!</button>
   </div>
 </template>
 
 <script>
 import axios from 'axios';
+import FirebaseUploader from '../images/FirebaseUploader.vue';
 
 export default {
+  components: {
+    FirebaseUploader,
+  },
   data() {
     return {
+      hasProfile: false,
       houseData: {
         user_id: localStorage.getItem('user_id'),
         title: '',
         address: '',
         city: '',
         rooms: '',
-        sleepingPlaces: '',
+        sleepingplaces: '',
         description: '',
       },
     };
   },
   methods: {
+    getProfileData(userId) {
+      const path = `${(process.env.VUE_APP_API_URL)}get_user_profile/${userId}`;
+      const headers = {
+        headers: {
+          Authorization: localStorage.getItem('authorizationHeader'),
+        },
+      };
+      axios.get(path, {}, headers)
+        .then((res) => {
+          // bool to indicates whether user has profile
+          if (res.data.length > 0) {
+            // this.houseData = res.data;
+            const resData = res.data[0];
+            this.houseData = resData;
+            console.log(this.houseData);
+            this.hasProfile = true;
+          }
+        })
+        .catch((error) => {
+          console.log(error);
+          return false;
+        });
+    },
     postProfile(payload) {
+      console.log(`user id is ${this.houseData.user_id}`);
       const headers = {
         headers: {
           Authorization: localStorage.getItem('authorizationHeader'),
@@ -70,19 +114,43 @@ export default {
       console.log(payload);
       axios.post(path, payload, headers)
         .then(() => {
-          this.getProducts();
           this.makeToast('Profile submitted');
         })
         .catch((error) => {
           // eslint-disable-next-line
           console.log(error);
           this.makeDangerToast('Gegevens incompleet');
-          this.getProducts();
         });
     },
-    submitProfile() {
-      this.postProfile(this.houseData);
-      console.log(`Profile submitted for user with ID: ${this.houseData.user_id}`);
+    updateProfile(payload) {
+      const headers = {
+        headers: {
+          Authorization: localStorage.getItem('authorizationHeader'),
+        },
+      };
+      const path = `${(process.env.VUE_APP_API_URL)}update_user_profile/${localStorage.getItem('user_id')}`;
+      axios.post(path, payload, headers)
+        .then(() => {
+          this.makeToast('Profile updated');
+        })
+        .catch((error) => {
+          // eslint-disable-next-line
+          console.log(error);
+          this.makeDangerToast('Sum tin wong!');
+        });
+    },
+    submitProfile(bool) {
+      if (bool === false) {
+        console.log(`hasprofile ${bool}`);
+        this.postProfile(this.houseData);
+        console.log(`Profile submitted for user with ID: ${this.houseData.user_id}`);
+        this.hasProfile = true;
+      } else {
+        console.log(`hasprofile ${bool}`);
+        console.log(`user-id: ${this.houseData.user_id}`);
+        this.updateProfile(this.houseData);
+        console.log(`Profile updated for user with ID: ${this.houseData.user_id}`);
+      }
     },
     makeToast(text) {
       this.$toasted.show(text, {
@@ -101,6 +169,12 @@ export default {
       });
     },
   },
+  created() {
+    // check if user has profile
+    this.getProfileData(this.houseData.user_id);
+    console.log(this.houseData.user_id);
+    console.log(this.hasProfile);
+  },
 };
 </script>
 
@@ -116,6 +190,32 @@ export default {
   border-color:#D291BC;
   -webkit-box-shadow: none;
   box-shadow: none;
+}
+  .block {
+  font-family: 'Courier New', Courier, monospace;
+  color: whitesmoke;
+  background-color: #9799BA;
+  background-image:
+    linear-gradient(
+      #9799BA, #b5a1c7
+    );
+  display: block;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  border-radius: 10px;
+  width: 100%;
+  height: 80px;
+  border: none;
+  padding: 14px 28px;
+  font-size: 16px;
+  cursor: pointer;
+  text-align: center;
+}
+.block:hover {
+  background-image:
+    linear-gradient(
+      #c59734, #e5e772
+    );
 }
 
 </style>

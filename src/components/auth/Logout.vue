@@ -13,6 +13,7 @@ export default {
   methods: {
     logout() {
       localStorage.removeItem('token');
+      localStorage.removeItem('validTill');
       this.$router.push('/login');
     },
   },
